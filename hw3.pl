@@ -13,8 +13,9 @@ maxnums(A, B, MAX) :- A =< B, MAX = B.
 % ------------------------------------------------
 % #2 (Undergraduate/Graduate) (5/5 pts)
 % Determine the summation of a list of integer numbers
-% sum(LST, SUM).
-
+sum(LST, SUM) :- sum(LST, 0, SUM).
+sum([], SUM, SUM).
+sum([H|T], CURRENT, SUM) :- TOTAL is CURRENT + H, sum(T, TOTAL, SUM).
 
 % sum([1, 2, 3, 4], SUM). -> SUM = 10
 % sum([10, -10], SUM). -> SUM = 0
