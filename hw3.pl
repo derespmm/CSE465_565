@@ -26,8 +26,9 @@ sum([H|T], CURRENT, SUM) :- TOTAL is CURRENT + H, sum(T, TOTAL, SUM).
 % ** You MUST use/call your maxnums predicate that you defined in #1
 %    as part of your solution.
 % ** You can always assume that the given LST is not empty. 
-% max(LST, MAX).
-
+max(LST, MAX) :- max(LST, 0, MAX).
+max([], MAX, MAX).
+max([H|T], CURRENT, MAX) :- maxnums(H, CURRENT, TEMP), max(T, TEMP, MAX).
 
 % max([-5, -5, -5], MAX). -> MAX = -5
 % max([1], MAX). -> MAX = 1
