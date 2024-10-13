@@ -56,8 +56,8 @@ findhalf([_|T], TARGET) :- findhalf(T, TARGET).
 % #5 (Undergraduate/Graduate) (5/5 pts)
 % Determine whether the given integer number does exist in the given 
 % list of integer numbers
-% elementExist(E, LST).
-
+elementExist(E, [H|_]) :- E == H, !.
+elementExist(E, [_|T]) :- elementExist(E, T).
 
 % elementExist(1, [1, 2, 3]). -> true.
 % elementExist(1, []). -> false.
