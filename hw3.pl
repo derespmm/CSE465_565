@@ -40,9 +40,13 @@ max([H|T], CURRENTMAX, FINALMAX) :- maxnums(H, CURRENTMAX, TEMPMAX), max(T, TEMP
 % ** You MUST use/call your sum predicate that you defined in #2
 %    as part of your solution.
 % ** You can always assume that the given LST is not empty. 
-% partitionable(LST).
+partitionable(LST) :- sum(LST, TOTAL), TOTAL mod 2 =:= 0, HALF is TOTAL / 2, findhalf(LST, HALF).
 
- 
+% Helper function to find a subset that equals half of the total
+findhalf([], 0).
+findhalf([H|T], TARGET) :- TARGET >= H, NEWTARGET is TARGET - H, findhalf(T, NEWTARGET).
+findhalf([_|T], TARGET) :- findhalf(T, TARGET).
+
 % partitionable([1, 2, 3, 4, 10]). -> true. because [10, 10]
 % partitionable([2, 1, 1]). -> true. because [2, 2]
 % partitionable([0]). -> true.
