@@ -1,11 +1,11 @@
 % hw3.pl
-% ADD YOUR NAME HERE
+% Author: Matt DeRespinis
 
 % ------------------------------------------------
 % #1 (Undergraduate/Graduate) (5/5 pts)
 % Determine the Maximum of two int numbers
-% maxnums(A, B, MAX).
-
+maxnums(A, B, MAX) :- A > B, MAX = A.
+maxnums(A, B, MAX) :- A =< B, MAX = B.
 
 % maxnums(-12, 12, MAX). -> MAX = 12
 % maxnums(11232, 92674, MAX). -> MAX = 92674
