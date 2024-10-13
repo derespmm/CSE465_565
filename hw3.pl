@@ -136,7 +136,11 @@ getStateInfo(PLACE, STATE, ZIPCODE) :- location(ZIPCODE, PLACE, STATE, _, _, _).
 %    from Prolog library. Being able to learn something
 %    about a new programming language on your own is a skil that takes
 %    practice. 
-% getCommon(STATE1, STATE2, PLACELST).
+getCommon(STATE1, STATE2, PLACELST) :- 
+    findall(PLACE1, getStateInfo(PLACE1, STATE1, _), PLACELST1), 
+    findall(PLACE2, getStateInfo(PLACE2, STATE2, _), PLACELST2), 
+    intersection(PLACELST1, PLACELST2, TEMPPLACES), 
+    list_to_set(TEMPPLACES, PLACELST).
 
 
 % getCommon('OH','MI',PLACELST). -> *Should be 131 unique plcase* 
