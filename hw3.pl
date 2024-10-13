@@ -65,8 +65,9 @@ elementExist(E, [_|T]) :- elementExist(E, T).
 % ------------------------------------------------
 % #6 (Undergraduate/Graduate) (5/5 pts)
 % Determine the reverse list of integer numbers
-% reverse(LST, REVLST).
-
+reverse(LST, REVLST) :- reverse(LST, [], REVLST).
+reverse([], LST, LST).
+reverse([H|T], LST, REVLST) :- reverse(T, [H|LST], REVLST).
 
 % reverse([], REVLST). -> REVLST = []
 % reverse([1, 1, 1], REVLST). -> REVLST = [1, 1, 1]
