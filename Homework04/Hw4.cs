@@ -29,9 +29,36 @@ public class Hw4
         // Do not add or change anything above, inside the 
         // Main method
         // ============================
-        List<Zipcode> zipcodes = Zipcode.readZipCodes("zipcodes.txt");
+        List<Zipcode> zipcodes = Zipcode.readZipCodes("zipcodes.txt"); // getting all zipcode objects
+        string[] cities = File.ReadAllLines("cities.txt"); // getting all city names
+        string[] states = File.ReadAllLines("states.txt"); // getting all state names
+        string[] lines = File.ReadAllLines("zips.txt"); // getting all zipcodes
+        List<int> zips = new List<int>();
+        for (int i = 0; i < lines.Length; i++)
+        {
+            zips.Add(int.Parse(lines[i]));
+        }
 
 
+        //Starting the first problem
+        // Making a new hashset for every state in our states.txt file, and 
+        // storing every one of its cities in the hashset. 
+        Dictionary<string, HashSet<string>> citiesPerState = new Dictionary<string, HashSet<string>>();
+        foreach (Zipcode zipcode in zipcodes)
+        {
+            if (!citiesPerState.ContainsKey(zipcode.State))
+            {
+                citiesPerState.Add(zipcode.State, new HashSet<string>());
+            }
+            citiesPerState[zipcode.State].Add(zipcode.City);
+        }
+
+        // making a hashset which
+        HashSet<string> commonCities = new HashSet<string>(citiesPerState[states[0]]);
+        for (int i = 1; i < states.Length; i++) 
+        {
+            commonCities.IntersectWith(citiesPerState[states[i]]);
+        }
 
 
         // TODO: your code goes here
