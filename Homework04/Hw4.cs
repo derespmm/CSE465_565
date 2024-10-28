@@ -53,14 +53,19 @@ public class Hw4
             citiesPerState[zipcode.State].Add(zipcode.City);
         }
 
-        // making a hashset which
+        // making a hashset which is equal to the hashset associated with the first
+        // state in the states list.
+        // We can pick any hashset to start the intersect
         HashSet<string> commonCities = new HashSet<string>(citiesPerState[states[0]]);
         for (int i = 1; i < states.Length; i++) 
         {
             commonCities.IntersectWith(citiesPerState[states[i]]);
         }
 
-
+        foreach (string city in commonCities)
+        {
+            File.AppendAllText("CommonCityNames.txt", city + "\n");
+        }
         // TODO: your code goes here
 
 
