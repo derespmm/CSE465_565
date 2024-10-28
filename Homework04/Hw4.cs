@@ -1,7 +1,7 @@
 /* 
   Homework#4
 
-  Add your name here: ----
+  Add your name here: Matt DeRespinis
 
   You are free to create as many classes within the Hw4.cs file or across 
   multiple files as you need. However, ensure that the Hw4.cs file is the 
@@ -27,9 +27,10 @@ public class Hw4
         // Do not add or change anything above, inside the 
         // Main method
         // ============================
+        ArrayList<Zipcode> zipcodes = new ArrayList<Zipcode>();
+        zipcodes = readZipCodes();
 
-
-
+        
 
 
         // TODO: your code goes here
