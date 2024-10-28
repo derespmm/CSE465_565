@@ -15,6 +15,8 @@
   
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class Hw4
 {
@@ -27,10 +29,9 @@ public class Hw4
         // Do not add or change anything above, inside the 
         // Main method
         // ============================
-        ArrayList<Zipcode> zipcodes = new ArrayList<Zipcode>();
-        zipcodes = readZipCodes();
+        List<Zipcode> zipcodes = Zipcode.readZipCodes("zipcodes.txt");
 
-        
+
 
 
         // TODO: your code goes here
