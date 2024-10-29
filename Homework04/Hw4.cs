@@ -72,9 +72,12 @@ public class Hw4
 
 
         // Starting second problem 
-        foreach (int zip in zips) {
-            for (int i = 0; i < zipcodes.Count; i++) {
-                if (zip == zipcodes[i].ZipCode) {
+        foreach (int zip in zips) 
+        {
+            for (int i = 0; i < zipcodes.Count; i++) 
+            {
+                if (zip == zipcodes[i].ZipCode) 
+                {
                     File.AppendAllText("LatLon.txt", zipcodes[i].Lat + " " + zipcodes[i].Long + "\n");
                     break;
                 }
@@ -82,9 +85,12 @@ public class Hw4
         }
 
         // Starting third problem
-        foreach (string city in cities) {
-            foreach (Zipcode zipcode in zipcodes) {
-                if (city == zipcode.City) {
+        foreach (string city in cities) 
+        {
+            foreach (Zipcode zipcode in zipcodes) 
+            {
+                if (city.Equals(zipcode.City)) 
+                {
                     File.AppendAllText("CityStates.txt", zipcode.State + " ");
                 }
             }
