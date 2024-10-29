@@ -9,10 +9,10 @@
   class named hw4. This specific setup is crucial because your instructor 
   will use the hw4 class to execute and evaluate your work.
   */
-  // BONUS POINT:
-  // => Used Pointers from lines 10 to 15 <=
-  // => Used Pointers from lines 40 to 63 <=
-  
+// BONUS POINT:
+// => Used Pointers from lines 10 to 15 <=
+// => Used Pointers from lines 40 to 63 <=
+
 
 using System;
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ public class Hw4
         // state in the states list.
         // We can pick any hashset to start the intersect
         HashSet<string> commonCities = new HashSet<string>(citiesPerState[states[0]]);
-        for (int i = 1; i < states.Length; i++) 
+        for (int i = 1; i < states.Length; i++)
         {
             commonCities.IntersectWith(citiesPerState[states[i]]);
         }
@@ -72,11 +72,11 @@ public class Hw4
 
 
         // Starting second problem 
-        foreach (int zip in zips) 
+        foreach (int zip in zips)
         {
-            for (int i = 0; i < zipcodes.Count; i++) 
+            for (int i = 0; i < zipcodes.Count; i++)
             {
-                if (zip == zipcodes[i].ZipCode) 
+                if (zip == zipcodes[i].ZipCode)
                 {
                     File.AppendAllText("LatLon.txt", zipcodes[i].Lat + " " + zipcodes[i].Long + "\n");
                     break;
@@ -85,21 +85,41 @@ public class Hw4
         }
 
         // Starting third problem
-        foreach (string city in cities) 
+        Dictionary<string, SortedSet<string>> cityStates = new Dictionary<string, SortedSet<string>>();
+
+        foreach (string city in cities)
         {
-            foreach (Zipcode zipcode in zipcodes) 
+            SortedSet<string> statesForCity = new SortedSet<string>();
+
+            foreach (Zipcode zipcode in zipcodes)
             {
-                if (city.Equals(zipcode.City)) 
+                if (city.Trim().Equals(zipcode.City.Trim(), StringComparison.OrdinalIgnoreCase))
                 {
-                    File.AppendAllText("CityStates.txt", zipcode.State + " ");
+                    statesForCity.Add(zipcode.State); 
                 }
             }
-            File.AppendAllText("CityStates.txt", "\n");
+
+            if (statesForCity.Count > 0)
+            {
+                cityStates[city] = statesForCity;
+            }
+        }
+
+        
+        foreach (var entry in cityStates)
+        {
+            File.AppendAllText("CityStates.txt", "");
+            foreach (var state in entry.Value)
+            {
+                File.AppendAllText("CityStates.txt", $"{state} ");
+            }
+            File.AppendAllText("CityStates.txt", "\n"); 
         }
 
 
 
-        
+
+
 
         // ============================
         // Do not add or change anything below, inside the 
@@ -108,10 +128,10 @@ public class Hw4
 
         // Capture the end time
         DateTime endTime = DateTime.Now;  // Do not change
-        
+
         // Calculate the elapsed time
         TimeSpan elapsedTime = endTime - startTime; // Do not change
-        
+
         // Display the elapsed time in milliseconds
         Console.WriteLine($"Elapsed Time: {elapsedTime.TotalMilliseconds} ms");
     }
