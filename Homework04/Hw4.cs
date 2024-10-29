@@ -62,9 +62,10 @@ public class Hw4
             commonCities.IntersectWith(citiesPerState[states[i]]);
         }
 
-        commonCities.Sort();
+        List<string> commonCitiesList = new List<string>(commonCities);
+        commonCitiesList.Sort();
 
-        foreach (string city in commonCities)
+        foreach (string city in commonCitiesList)
         {
             File.AppendAllText("CommonCityNames.txt", city + "\n");
         }
