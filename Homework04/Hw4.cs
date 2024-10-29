@@ -69,8 +69,17 @@ public class Hw4
         {
             File.AppendAllText("CommonCityNames.txt", city + "\n");
         }
-        // TODO: your code goes here
 
+
+        // Starting second problem 
+        foreach (int zip in zips) {
+            for (int i = 0; i < zipcodes.Count; i++) {
+                if (zip == zipcodes[i].ZipCode) {
+                    File.AppendAllText("LatLon.txt", zipcodes[i].Lat + " " + zipcodes[i].Long + "\n");
+                    break;
+                }
+            }
+        }
 
 
 
