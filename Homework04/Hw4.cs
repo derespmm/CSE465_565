@@ -81,6 +81,16 @@ public class Hw4
             }
         }
 
+        // Starting third problem
+        foreach (string city in cities) {
+            foreach (Zipcode zipcode in zipcodes) {
+                if (city == zipcode.City) {
+                    File.AppendAllText("CityStates.txt", zipcode.State + " ");
+                }
+            }
+            File.AppendAllText("CityStates.txt", "\n");
+        }
+
 
 
         
