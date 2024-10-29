@@ -105,7 +105,6 @@ public class Hw4
             }
         }
 
-        
         foreach (var entry in cityStates)
         {
             File.AppendAllText("CityStates.txt", "");
@@ -115,6 +114,7 @@ public class Hw4
             }
             File.AppendAllText("CityStates.txt", "\n"); 
         }
+        
 
 
 
