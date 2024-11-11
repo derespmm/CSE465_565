@@ -1,4 +1,5 @@
 import time
+from zipcode import Zipcode
 
 """
   Homework#5
@@ -26,12 +27,16 @@ if __name__ == "__main__":
     '''
 
     
-    # write your code here
+    # getting our zipcodes
+    zipcodes = Zipcode.read_zipcodes("zipcodes.txt")
 
     # STARTING PROBLEM 1
     myFile = open("states.txt", "r")
     states = myFile.readlines()
     myFile.close()
+
+    
+    
 
 
     '''
