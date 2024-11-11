@@ -41,7 +41,10 @@ if __name__ == "__main__":
             citiesPerState[zipcode.State] = set()
         citiesPerState[zipcode.State].add(zipcode.City)
 
-    
+    commonCities = citiesPerState[states[0]]
+    for state in states[1:]:
+        commonCities = commonCities.intersection(citiesPerState[state])
+
     
 
 
