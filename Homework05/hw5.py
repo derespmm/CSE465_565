@@ -50,6 +50,17 @@ if __name__ == "__main__":
     # ENDING PROBLEM 1
 
 
+    # STARTING PROBLEM 2
+    zips = [line.strip() for line in open("zips.txt") if line.strip()]
+
+    myFile = open("LatLon.txt")
+    for zipcode in zipcodes:
+        for zip in zips:
+            if zip == zipcode.zipcode:
+                myFile.write(zipcode.Lat + " " + zipcode.Lon + "\n")
+    
+    myFile.close()
+
     '''
     Inside the __main__, do not add any codes after this line.
     ----------------------------------------------------------
