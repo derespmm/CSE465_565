@@ -35,6 +35,12 @@ if __name__ == "__main__":
     states = myFile.readlines()
     myFile.close()
 
+    citiesPerState = {}
+    for zipcode in zipcodes:
+        if zipcode.State not in citiesPerState:
+            citiesPerState[zipcode.State] = set()
+        citiesPerState[zipcode.State].add(zipcode.City)
+
     
     
 
