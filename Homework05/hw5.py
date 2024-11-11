@@ -44,7 +44,7 @@ if __name__ == "__main__":
         commonCities = commonCities.intersection(citiesPerState[state])
 
     myFile = open("CommonCityNames.txt", "w")
-    for city in commonCities:
+    for city in sorted(commonCities):
         myFile.write(city + "\n")
     myFile.close()
     # ENDING PROBLEM 1
