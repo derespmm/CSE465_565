@@ -31,21 +31,23 @@ if __name__ == "__main__":
     zipcodes = Zipcode.read_zipcodes("zipcodes.txt")
 
     # STARTING PROBLEM 1
-    myFile = open("states.txt", "r")
-    states = myFile.readlines()
-    myFile.close()
+    states = [line.strip() for line in open("states.txt") if line.strip()]
 
     citiesPerState = {}
     for zipcode in zipcodes:
-        if zipcode.State not in citiesPerState:
-            citiesPerState[zipcode.State] = set()
-        citiesPerState[zipcode.State].add(zipcode.City)
+        if zipcode.state not in citiesPerState:
+            citiesPerState[zipcode.state] = set()
+        citiesPerState[zipcode.state].add(zipcode.city)
 
     commonCities = citiesPerState[states[0]]
     for state in states[1:]:
         commonCities = commonCities.intersection(citiesPerState[state])
 
-    
+    myFile = open("CommonCityNames.txt", "w")
+    for city in commonCities:
+        myFile.write(city + "\n")
+    myFile.close()
+    # ENDING PROBLEM 1
 
 
     '''
