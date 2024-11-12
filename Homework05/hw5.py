@@ -76,10 +76,17 @@ if __name__ == "__main__":
 
     statesPerCity = {}
     for zipcode in zipcodes:
-        if zipcode.city not in statesPerCity:
-            statesPerCity[zipcode.city] = set()
-        statesPerCity[zipcode.city].add(zipcode.state)
+        if zipcode.city in cities: 
+            if zipcode.city not in statesPerCity:
+                statesPerCity[zipcode.city] = set()
+            statesPerCity[zipcode.city].add(zipcode.state)
 
+    print("States Per City:", statesPerCity)
+
+    with open("CityStates.txt", "w") as myFile:
+        for city in statesPerCity:
+            states = " ".join(sorted(statesPerCity[city]))
+            myFile.write(f"{states}\n")
     # ENDING PROBLEM 3 -----------------------------------------------------------
     '''
     Inside the __main__, do not add any codes after this line.
