@@ -72,13 +72,13 @@ if __name__ == "__main__":
 
 
     # STARTING PROBLEM 3 ---------------------------------------------------------
-    cities = [line.strip() for line in open("cities.txt") if line.strip()]
+    cities = [line.strip().lower() for line in open("cities.txt") if line.strip()]
 
     statesPerCity = {}
     for city in cities:
         statesPerCity[city] = set()
         for zipcode in zipcodes:
-            if zipcode.city == city:
+            if zipcode.city.strip().lower() == city:
                 statesPerCity[city].add(zipcode.state)
 
     with open("CityStates.txt", "w") as myFile:
