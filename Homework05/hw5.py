@@ -57,10 +57,14 @@ if __name__ == "__main__":
     zips = [line.strip() for line in open("zips.txt") if line.strip()]
 
     zipsSet = set()
+    # for zipcode in zipcodes:
+    #     for zip in zips:
+    #         if zip == zipcode.zipcode:
+    #             zipsSet.add((zipcode.lat, zipcode.long))
+
     for zipcode in zipcodes:
-        for zip in zips:
-            if zip == zipcode.zipcode:
-                zipsSet.add((zipcode.lat, zipcode.long))
+        if zipcode.zipcode in zips:
+            zipsSet.add((zipcode.lat, zipcode.long))
     
     with open("LatLon.txt", "w") as myFile:
         myFile.writelines([f"{lat} {lon}\n" for lat, lon in zipsSet])
