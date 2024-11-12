@@ -43,10 +43,13 @@ if __name__ == "__main__":
     for state in states[1:]:
         commonCities = commonCities.intersection(citiesPerState[state])
 
-    myFile = open("CommonCityNames.txt", "w")
-    for city in sorted(commonCities):
-        myFile.write(city + "\n")
-    myFile.close()
+    # myFile = open("CommonCityNames.txt", "w")
+    # for city in sorted(commonCities):
+    #     myFile.write(city + "\n")
+    # myFile.close()
+
+    with open("CommonCityNames.txt", "w") as myFile:
+        myFile.writelines(f"{city}\n" for city in sorted(commonCities))
     # ENDING PROBLEM 1 -------------------------------------------------------------
 
 
@@ -63,6 +66,10 @@ if __name__ == "__main__":
         myFile.writelines([f"{lat} {lon}\n" for lat, lon in zipsSet])
     # ENDING PROBLEM 2 -----------------------------------------------------------
 
+
+    # STARTING PROBLEM 3 ---------------------------------------------------------
+
+    # ENDING PROBLEM 3 -----------------------------------------------------------
     '''
     Inside the __main__, do not add any codes after this line.
     ----------------------------------------------------------
