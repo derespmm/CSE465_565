@@ -68,6 +68,13 @@ if __name__ == "__main__":
 
 
     # STARTING PROBLEM 3 ---------------------------------------------------------
+    cities = [line.strip() for line in open("cities.txt") if line.strip()]
+
+    statesPerCity = {}
+    for zipcode in zipcodes:
+        if zipcode.city not in statesPerCity:
+            statesPerCity[zipcode.city] = set()
+        statesPerCity[zipcode.city].add(zipcode.state)
 
     # ENDING PROBLEM 3 -----------------------------------------------------------
     '''
