@@ -75,13 +75,11 @@ if __name__ == "__main__":
     cities = [line.strip() for line in open("cities.txt") if line.strip()]
 
     statesPerCity = {}
-    for zipcode in zipcodes:
-        if zipcode.city in cities: 
-            if zipcode.city not in statesPerCity:
-                statesPerCity[zipcode.city] = set()
-            statesPerCity[zipcode.city].add(zipcode.state)
-
-    print("States Per City:", statesPerCity)
+    for city in cities:
+        statesPerCity[city] = set()
+        for zipcode in zipcodes:
+            if zipcode.city == city:
+                statesPerCity[city].add(zipcode.state)
 
     with open("CityStates.txt", "w") as myFile:
         for city in statesPerCity:
