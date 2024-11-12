@@ -34,10 +34,16 @@ if __name__ == "__main__":
     states = [line.strip() for line in open("states.txt") if line.strip()]
 
     citiesPerState = {}
-    for zipcode in zipcodes:
-        if zipcode.state not in citiesPerState:
-            citiesPerState[zipcode.state] = set()
-        citiesPerState[zipcode.state].add(zipcode.city)
+    # for zipcode in zipcodes:
+    #     if zipcode.state not in citiesPerState:
+    #         citiesPerState[zipcode.state] = set()
+    #     citiesPerState[zipcode.state].add(zipcode.city)
+
+    for state in states:
+        citiesPerState[state] = set()
+        for zipcode in zipcodes:
+            if state == zipcode.state:
+                citiesPerState[state].add(zipcode.city)
 
     commonCities = citiesPerState[states[0]]
     for state in states[1:]:
