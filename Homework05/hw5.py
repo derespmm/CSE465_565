@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # getting our zipcodes
     zipcodes = Zipcode.read_zipcodes("zipcodes.txt")
 
-    # STARTING PROBLEM 1
+    # STARTING PROBLEM 1 -------------------------------------------------------------
     states = [line.strip() for line in open("states.txt") if line.strip()]
 
     citiesPerState = {}
@@ -47,19 +47,21 @@ if __name__ == "__main__":
     for city in sorted(commonCities):
         myFile.write(city + "\n")
     myFile.close()
-    # ENDING PROBLEM 1
+    # ENDING PROBLEM 1 -------------------------------------------------------------
 
 
-    # STARTING PROBLEM 2
+    # STARTING PROBLEM 2 ---------------------------------------------------------
     zips = [line.strip() for line in open("zips.txt") if line.strip()]
 
-    myFile = open("LatLon.txt")
+    zipsSet = set()
     for zipcode in zipcodes:
         for zip in zips:
             if zip == zipcode.zipcode:
-                myFile.write(zipcode.Lat + " " + zipcode.Lon + "\n")
+                zipsSet.add((zipcode.lat, zipcode.long))
     
-    myFile.close()
+    with open("LatLon.txt", "w") as myFile:
+        myFile.writelines([f"{lat} {lon}\n" for lat, lon in zipsSet])
+    # ENDING PROBLEM 2 -----------------------------------------------------------
 
     '''
     Inside the __main__, do not add any codes after this line.
