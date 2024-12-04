@@ -17,8 +17,8 @@ class Interpreter:
 
     # Class attribute for token specifications accessible to all instances
     TOKEN_SPECIFICATION = (
-        ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*\s'),                   # Integer variable (lookahead for assignment and operations)
-        ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*\s'),                   # String variable (lookahead for assignment and addition)
+        ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*-?\d+\s*;)'),                   # Integer variable (lookahead for assignment and operations)
+        ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*"[^"]*"\s*;)'),                   # String variable (lookahead for assignment and addition)
         ('ASSIGN',      r'(?<=\s)\=(?=\s)'),                            # Assignment operator
         ('PLUS_ASSIGN', r'(?<=\s)\+=(?=\s)'),                           # Addition assignment operator
         ('MINUS_ASSIGN',r'(?<=\s)-=(?=\s)'),                            # Subtraction assignment operator
@@ -108,7 +108,7 @@ class Interpreter:
                     sys.exit()
         
             elif token[0] == 'PRINT':
-                var_name = next(it)[1]
+                var_name = token[1]
                 semicolon = next(it)[1]
 
                 if var_name in self.variables:
