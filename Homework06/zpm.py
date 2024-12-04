@@ -58,6 +58,7 @@ class Interpreter:
             if match and tok_type != 'WS' and tok_type != 'NEWLN':  # Skip whitespace and newLine
                     token = (tok_type, match.group(0).strip())  # getting the match from the line
                     tokens.append(token)
+
                     
         return tokens
 
@@ -74,7 +75,6 @@ class Interpreter:
         for token in it:
             if token[0] in ['INT_VAR', 'STR_VAR']:
                 var_name = token[1]
-                next(it)  # skip the next token. We will deal with the Str or Int value later
                 op_token = next(it)[1]  # Get the operator
                 value_token = next(it)  # Get the value token
                 semicolon = next(it)[1]  # Ensure semicolon
@@ -131,6 +131,7 @@ class Interpreter:
                 self.line_number += 1
 
                 tokens = self.lexical_analysis(line)
+                print(f"Tokens for line {self.line_number}: {tokens}")
                 self.parse(tokens)
 
 if __name__ == "__main__":
