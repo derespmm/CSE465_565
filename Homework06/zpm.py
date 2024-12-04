@@ -30,7 +30,8 @@ class Interpreter:
         ('STRING',      r'"[^"]*"'),                                    # String literal, handling quotes
         ('SEMICOLON',   r'(?<=\s);'),                                   # Statement terminator
         ('WS',          r'\s+'),                                        # Whitespace
-        ('NEWLN',       r'\n')
+        ('NEWLN',       r'\n'),
+        ('PRINT',       r'PRINT')
     )
 
     def __init__(self, file_name):
@@ -104,6 +105,16 @@ class Interpreter:
                         self.variables[var_name] *= value
                 except Exception as e:
                     print(f"Error in line: {self.line_number}")
+                    sys.exit()
+        
+            elif token[0] == 'PRINT':
+                var_name = next(it)[1]
+                semicolon = next(it)[1]
+
+                if var_name in self.variables:
+                    print(self.variables[var_name])
+                else:
+                    print(f"Undefined variable '{var_name}' on line {self.line_number}")
                     sys.exit()
 
     def run(self, file_name = ""):
