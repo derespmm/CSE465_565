@@ -127,7 +127,7 @@ if __name__ == "__main__":
     
     #filename = sys.argv[1]  # for getting the filename from command line
     #OR
-    filename = sys.argv[2]
+    filename = sys.argv[1]
 
     interpreter = Interpreter(filename)
     interpreter.run()
