@@ -31,7 +31,7 @@ class Interpreter:
         ('SEMICOLON',   r'(?<=\s);'),                                   # Statement terminator
         ('WS',          r'\s+'),                                        # Whitespace
         ('NEWLN',       r'\n'),
-        ('PRINT',       r'PRINT')
+        ('PRINT',       r'(?<=PRINT\s)[a-zA-Z_][a-zA-Z_0-9]*')
     )
 
     def __init__(self, file_name):
@@ -107,7 +107,7 @@ class Interpreter:
                     print(f"Error in line: {self.line_number}")
                     sys.exit()
         
-            elif token[0] == 'PRINT':
+            elif token[0] in ['PRINT']:
                 var_name = token[1]
                 semicolon = next(it)[1]
 
