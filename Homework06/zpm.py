@@ -17,6 +17,8 @@ class Interpreter:
 
     # Class attribute for token specifications accessible to all instances
     TOKEN_SPECIFICATION = (
+        ('PRINT',       r'PRINT(?=\s[a-zA-Z_][a-zA-Z_0-9]*\s*;)'),
+        ('PRINT_VAR',   r'(?<=PRINT\s)[a-zA-Z_][a-zA-Z_0-9]*(?=\s*;)'),
         ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*-?\d+\s*;)'),                   # Integer variable (lookahead for assignment and operations)
         ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*"[^"]*"\s*;)'),                   # String variable (lookahead for assignment and addition)
         ('ASSIGN',      r'(?<=\s)\=(?=\s)'),                            # Assignment operator
@@ -30,8 +32,7 @@ class Interpreter:
         ('STRING',      r'"[^"]*"'),                                    # String literal, handling quotes
         ('SEMICOLON',   r'(?<=\s);'),                                   # Statement terminator
         ('WS',          r'\s+'),                                        # Whitespace
-        ('NEWLN',       r'\n'),
-        ('PRINT',       r'(?<=PRINT\s)[a-zA-Z_][a-zA-Z_0-9]*')
+        ('NEWLN',       r'\n')
     )
 
     def __init__(self, file_name):
@@ -108,14 +109,18 @@ class Interpreter:
                     sys.exit()
         
             elif token[0] in ['PRINT']:
-                var_name = token[1]
+                print_token = token[1]
+                var_token = next(it)[1]
                 semicolon = next(it)[1]
 
-                if var_name in self.variables:
-                    print(self.variables[var_name])
-                else:
-                    print(f"Undefined variable '{var_name}' on line {self.line_number}")
-                    sys.exit()
+                if (var_token[0] == 'PRINT_VAR'):
+                    var_name = var_token[1]
+                    print(f'{var_token[1]} = {self.variables[var_name]}')
+                    if var_name in self.variables:
+                        print(f'{var_token[1]} = {self.variables[var_name]}')
+                    else:
+                        print(f"Undefined variable '{var_name}' on line {self.line_number}")
+                        sys.exit()
 
     def run(self, file_name = ""):
         """
