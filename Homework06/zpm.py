@@ -116,14 +116,10 @@ class Interpreter:
                 next(it)
                 semicolon = next(it)[1]
 
-                if (var_token[0] == 'PRINT_VAR'):
-                    var_name = var_token[1]
-                    print(f'{var_token[1]} = {self.variables[var_name]}')
-                    if var_name in self.variables:
-                        print(f'{var_token[1]} = {self.variables[var_name]}')
-                    else:
-                        print(f"Undefined variable '{var_name}' on line {self.line_number}")
-                        sys.exit()
+                if var_token in self.variables:
+                    print(f'{var_token} = {self.variables[var_token]}')
+                else:
+                    print(f"Undefined variable '{var_token}' on line {self.line_number}")
 
     def run(self, file_name = ""):
         """
@@ -139,7 +135,7 @@ class Interpreter:
                 self.line_number += 1
 
                 tokens = self.lexical_analysis(line)
-                print(f"Tokens for line {self.line_number}: {tokens}")
+                # print(f"Tokens for line {self.line_number}: {tokens}")
                 self.parse(tokens)
 
 if __name__ == "__main__":
@@ -152,5 +148,5 @@ if __name__ == "__main__":
     interpreter = Interpreter(filename)
     interpreter.run()
     # if there is no error in the .zpm file, the next line will get printed at the end
-    print(interpreter.variables)
+    # print(interpreter.variables)
 
