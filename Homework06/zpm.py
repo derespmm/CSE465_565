@@ -19,8 +19,8 @@ class Interpreter:
     TOKEN_SPECIFICATION = (
         ('PRINT',       r'PRINT(?=\s[a-zA-Z_][a-zA-Z_0-9]*\s*;)'),
         ('PRINT_VAR',   r'(?<=PRINT\s)[a-zA-Z_][a-zA-Z_0-9]*(?=\s*;)'),
-        ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*-?\d+\s*;)'),                   # Integer variable (lookahead for assignment and operations)
-        ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*"[^"]*"\s*;)'),                   # String variable (lookahead for assignment and addition)
+        ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*(?:-?\d+|[a-zA-Z_][a-zA-Z_0-9]*))'),                   # Integer variable (lookahead for assignment and operations)
+        ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*("[^"]*"))'),                   # String variable (lookahead for assignment and addition)
         ('ASSIGN',      r'(?<=\s)\=(?=\s)'),                            # Assignment operator
         ('PLUS_ASSIGN', r'(?<=\s)\+=(?=\s)'),                           # Addition assignment operator
         ('MINUS_ASSIGN',r'(?<=\s)-=(?=\s)'),                            # Subtraction assignment operator
