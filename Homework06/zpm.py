@@ -119,10 +119,14 @@ class Interpreter:
                 next(it)
                 semicolon = next(it)[1]
 
-                if var_token in self.variables:
-                    print(f'{var_token} = {self.variables[var_token]}')
-                else:
+                if not (var_token in self.variables):
                     print(f"Undefined variable '{var_token}' on line {self.line_number}")
+
+                if isinstance(self.variables[var_token], int):
+                    print(f'{var_token} = {self.variables[var_token]}')
+
+                if isinstance(self.variables[var_token], str):
+                    print(f'{var_token} = \"{self.variables[var_token]}\"')
 
     def run(self, file_name = ""):
         """
