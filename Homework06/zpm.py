@@ -17,6 +17,9 @@ class Interpreter:
 
     # Class attribute for token specifications accessible to all instances
     TOKEN_SPECIFICATION = (
+        ('FOR',         r'FOR(?=.+ENDFOR)'),
+        ('FOR_LOOP_VAL',r'(?<=FOR\s)\d+'),
+        ('FOR_EXPR',   r'(?<=\d\s).+(?=ENDFOR)'),
         ('PRINT',       r'PRINT(?=\s[a-zA-Z_][a-zA-Z_0-9]*\s*;)'),
         ('PRINT_VAR',   r'(?<=PRINT\s)[a-zA-Z_][a-zA-Z_0-9]*(?=\s*;)'),
         ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*\s'),                   # Integer variable (lookahead for assignment and operations)
@@ -28,10 +31,11 @@ class Interpreter:
         ('MULT_ASSIGN', r'(?<=\s)\\=(?=\s)'),                           # Division assignment operator
         ('INT_VAR_VAL', r'(?<=[\+\-\*]=)\s[a-zA-Z_][a-zA-Z_0-9]*'),     # Integer variable (lookahead for operations)
         ('STR_VAR_VAL', r'(?<=\+=)\s[a-zA-Z_][a-zA-Z_0-9]*'),           # String variable (lookahead for addition)
-        ('ASS_VAL', r'(?<=\=)\s[a-zA-Z_][a-zA-Z_0-9]*'),                # variable (lookahead for assignment)
+        ('ASS_VAL',     r'(?<=\=)\s[a-zA-Z_][a-zA-Z_0-9]*'),            # variable (lookahead for assignment)
         ('NUMBER',      r'(?<=\s)-?\d+(?=\s)'),                         # Integer literal
         ('STRING',      r'"[^"]*"'),                                    # String literal, handling quotes
         ('SEMICOLON',   r'(?<=\s);'),                                   # Statement terminator
+        ('ENDFOR',      r'(?<=;\s)ENDFOR'),
         ('WS',          r'\s+'),                                        # Whitespace
         ('NEWLN',       r'\n')
     )
@@ -60,6 +64,8 @@ class Interpreter:
             if match and tok_type != 'WS' and tok_type != 'NEWLN':  # Skip whitespace and newLine
                     token = (tok_type, match.group(0).strip())  # getting the match from the line
                     tokens.append(token)
+                    if (match and tok_type == 'FOR_EXPR'):
+                        break
 
                     
         return tokens
@@ -107,9 +113,9 @@ class Interpreter:
                     elif op_token == '*=':
                         self.variables[var_name] *= value
                     elif op_token == '\=':
-                        self.variables[var_name] /= value
+                        self.variables[var_name] //= value
                 except Exception as e:
-                    print(f"Error in line: {self.line_number}")
+                    print(f"RUNTIME ERROR: Line {self.line_number}")
                     sys.exit()
         
             elif token[0] in ['PRINT']:
@@ -127,6 +133,19 @@ class Interpreter:
 
                 if isinstance(self.variables[var_token], str):
                     print(f'{var_token} = \"{self.variables[var_token]}\"')
+
+            elif token[0] in ['FOR']:
+                for_token = token[1]
+                for_val = next(it)[1]
+                for_expr_token = next(it)[1]
+
+                # print(f'Loop tokens: {for_expr_token}')
+                
+                for i in range(int(for_val)):
+                    for_tokens = for_expr_token.split(';')
+                    for line in for_tokens[:len(for_tokens)]:
+                        current_token = self.lexical_analysis(line.strip() + " ;")
+                        self.parse(current_token)
 
     def run(self, file_name = ""):
         """
@@ -148,9 +167,9 @@ class Interpreter:
 if __name__ == "__main__":
      # The second argument in sys.argv is expected to be the filename
     
-    #filename = sys.argv[1]  # for getting the filename from command line
+    filename = sys.argv[1]  # for getting the filename from command line
     #OR
-    filename = sys.argv[1]
+    # filename = "code6.zpm"
 
     interpreter = Interpreter(filename)
     interpreter.run()
