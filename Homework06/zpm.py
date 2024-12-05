@@ -19,15 +19,15 @@ class Interpreter:
     TOKEN_SPECIFICATION = (
         ('PRINT',       r'PRINT(?=\s[a-zA-Z_][a-zA-Z_0-9]*\s*;)'),
         ('PRINT_VAR',   r'(?<=PRINT\s)[a-zA-Z_][a-zA-Z_0-9]*(?=\s*;)'),
-        ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*(?:-?\d+|[a-zA-Z_][a-zA-Z_0-9]*))'),                   # Integer variable (lookahead for assignment and operations)
-        ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*(?=\s*(=|\+=|-=|\*=|\+|\-|\*)\s*("[^"]*"))'),                   # String variable (lookahead for assignment and addition)
+        ('INT_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*\s'),                   # Integer variable (lookahead for assignment and operations)
+        ('STR_VAR',     r'[a-zA-Z_][a-zA-Z_0-9]*\s'),                   # String variable (lookahead for assignment and addition)
         ('ASSIGN',      r'(?<=\s)\=(?=\s)'),                            # Assignment operator
         ('PLUS_ASSIGN', r'(?<=\s)\+=(?=\s)'),                           # Addition assignment operator
         ('MINUS_ASSIGN',r'(?<=\s)-=(?=\s)'),                            # Subtraction assignment operator
         ('MULT_ASSIGN', r'(?<=\s)\*=(?=\s)'),                           # Multiplication assignment operator
         ('INT_VAR_VAL', r'(?<=[\+\-\*]=)\s[a-zA-Z_][a-zA-Z_0-9]*'),     # Integer variable (lookahead for operations)
         ('STR_VAR_VAL', r'(?<=\+=)\s[a-zA-Z_][a-zA-Z_0-9]*'),           # String variable (lookahead for addition)
-        ('ASS_VAL',     r'(?<=\=)\s[a-zA-Z_][a-zA-Z_0-9]*'),            # variable (lookahead for assignment)
+        ('ASS_VAL', r'(?<=\=)\s[a-zA-Z_][a-zA-Z_0-9]*'),                # variable (lookahead for assignment)
         ('NUMBER',      r'(?<=\s)-?\d+(?=\s)'),                         # Integer literal
         ('STRING',      r'"[^"]*"'),                                    # String literal, handling quotes
         ('SEMICOLON',   r'(?<=\s);'),                                   # Statement terminator
@@ -76,6 +76,7 @@ class Interpreter:
         for token in it:
             if token[0] in ['INT_VAR', 'STR_VAR']:
                 var_name = token[1]
+                next(it)  # skip the next token. We will deal with the Str or Int value later
                 op_token = next(it)[1]  # Get the operator
                 value_token = next(it)  # Get the value token
                 semicolon = next(it)[1]  # Ensure semicolon
