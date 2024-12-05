@@ -112,6 +112,8 @@ class Interpreter:
             elif token[0] in ['PRINT']:
                 print_token = token[1]
                 var_token = next(it)[1]
+                next(it)
+                next(it)
                 semicolon = next(it)[1]
 
                 if (var_token[0] == 'PRINT_VAR'):
